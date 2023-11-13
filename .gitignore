@@ -8,3 +8,4 @@ wandb/
 *.sh
 *.pth
 *.npy
+output/
