@@ -85,8 +85,9 @@ def train(config):
     accelerator.wait_for_everyone()
     if accelerator.is_main_process:
         logging.info(config)
+        start_method = 'fork' if os.name == 'posix' else "spawn"
         wandb.init(dir=os.path.abspath(config.workdir), project=f'cc3m', config=config.to_dict(),
-                   job_type='train', mode='online', settings=wandb.Settings(start_method='fork'))
+                   job_type='train', mode='online', settings=wandb.Settings(start_method=start_method))
     else:
         logging.remove()
         logger.add(sys.stderr, level='ERROR')
